@@ -1,5 +1,5 @@
-from random import shuffle
-from card import Card
+from random import shuffle, sample
+from .card import Card
 
 class Deck:
     """
@@ -26,6 +26,12 @@ class Deck:
             cards.append(self.draw())
         return cards
 
+    def sample(self, n=1):
+        return sample(self.cards, n)
+
+    def remove(self, card):
+        self.cards.remove(card)
+
     def __str__(self):
         return Card.print_pretty_cards(self.cards)
 
@@ -36,7 +42,7 @@ class Deck:
 
         # create the standard 52 card deck
         for rank in Card.STR_RANKS:
-            for suit,val in Card.CHAR_SUIT_TO_INT_SUIT.iteritems():
+            for suit,val in Card.CHAR_SUIT_TO_INT_SUIT.items():
                 Deck._FULL_DECK.append(Card.new(rank + suit))
 
         return list(Deck._FULL_DECK)
